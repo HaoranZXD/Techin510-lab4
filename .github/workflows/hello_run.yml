@@ -2,7 +2,13 @@ name: run hello.py
 
 on:
   schedule:
-    - cron: '*/1 * * * *' # Every 15 minutes
+    - cron: '*/30 * * * *' # Every 30 minutes
+  workflow_call:
+    inputs:
+      reason:
+        required: false
+        type: string
+        description: 'Reason for manually triggering this workflow (optional)'
 
 jobs:
   build:
@@ -21,5 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: execute py script # run main.py
-        run: python main.py
+      - name: execute py script
+        run: python hello.py
+        env:
+          MANUAL_TRIGGER_REASON: ${{ github.event.inputs.reason }}
