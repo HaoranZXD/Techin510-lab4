@@ -3,12 +3,8 @@ name: run hello.py
 on:
   schedule:
     - cron: '*/30 * * * *' # Every 30 minutes
-  workflow_call:
-    inputs:
-      reason:
-        required: false
-        type: string
-        description: 'Reason for manually triggering this workflow (optional)'
+  workflow_dispatch:
+
 
 jobs:
   build:
